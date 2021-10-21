@@ -1,3 +1,5 @@
+import { getId } from '../util/getId';
+
 /**
  * @date 2021/8/15
  * @description complie code
@@ -8,18 +10,18 @@
  */
 class Compilable {
 
-    private id: string;
+    private id: string = `compilable-${getId()}`;
 
     get ID() {
         return this.id;
     }
 
-    protected regulatize = (): string => {
-        return ``;
+    protected regularize = (raw: string): string => {
+        return raw.replace(/\n/g, '').replace(/;/g, ';\n').replace(/}/g, '}\n').replace(/{/g, '{\n');
     }
 
     protected compile = (): string => {
-        return ``;
+        throw new Error(`${this.ID} unimplemented method`);
     }
 
 }
