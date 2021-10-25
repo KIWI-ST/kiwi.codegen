@@ -1,9 +1,15 @@
+import { join } from "./util/join";
+import { getId } from "./util/getId";
 import { Block } from "./code/Block";
+import { Scope } from "./code/Scope";
 import { Procedure } from "./code/Procedure";
 import { Compilable } from "./core/Compilable";
-import { getId } from "./util/getId";
-import { join } from "./util/join";
+import { ConditionT, ConditionTE } from "./code/Condition";
 
+/**
+ * @author axmand
+ * @description
+ */
 class Template extends Compilable {
 
     /**
@@ -46,7 +52,7 @@ class Template extends Compilable {
      * @param o 
      * @returns 
      */
-    def = (o:string|number|boolean|number[]|string[]):string=>{
+    def = (o: string | number | boolean | number[] | string[]): string => {
         return this.globalBlock.def(o);
     }
 
@@ -56,27 +62,28 @@ class Template extends Compilable {
      * @param parameterCount 
      * @returns 
      */
-    procedure = (name:string, parameterCount:number = 0):Procedure=>{
+    procedure = (name: string, parameterCount: number = 0): Procedure => {
         const procedure = new Procedure(name, parameterCount);
         this.PROCEDURE_SET.set(procedure.Name, procedure);
         return procedure;
     }
 
-    compile = ()=>{
-        /**
-         * compile block
-         * seems like:
-         * (function anonymous(linkNames){
-         *  //main
-         *  return{
-         *      fnName:function(p0){
-         *      },
-         *      //....
-         *  }
-         * })
-         */
-        const proces:string[] = [];
-        this.PROCEDURE_SET.forEach((v:Procedure, k:string)=>{
+    /**
+     * @description
+     * compile block
+     * seems like:
+     * (function anonymous(linkNames){
+     *  //main
+     *  return{
+     *      fnName:function(p0){
+     *      },
+     *      //....
+     *  }
+     * })
+     */
+    compile = () => {
+        const proces: string[] = [];
+        this.PROCEDURE_SET.forEach((v: Procedure, k: string) => {
             proces.push(`"${k}":${v.compile()},`);
         });
         const source = this.regularize(`"use strict";${this.globalBlock.compile()}return{${join(proces)}}`);
@@ -94,7 +101,14 @@ class Template extends Compilable {
          * executed in strict, apply(null)
          */
         return proc.apply(null, this.GLOBAL_VALUE_ARR);
-
     }
+}
 
+export {
+    Block,
+    Scope,
+    Template,
+    Procedure,
+    ConditionT,
+    ConditionTE
 }
