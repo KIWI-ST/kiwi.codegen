@@ -131,7 +131,7 @@ class Block extends Compilable {
      */
     compile = (): string => {
         const CODELINE_SET = this.CODELINE_SET, MERGE_BLOCKS_ARR = this.MERGE_BLOCKS_ARR, VARIABLE_NAME_ARR = this.VARIABLE_NAME_ARR;
-        let declareSource: string = VARIABLE_NAME_ARR.length > 0 ? `var ${VARIABLE_NAME_ARR.join(',')};` : ``;
+        const declareSource: string = VARIABLE_NAME_ARR.length > 0 ? `var ${VARIABLE_NAME_ARR.join(',')};` : ``;
         let bodySource: string = ``;
         CODELINE_SET.forEach(
             (line: any[] | Block | ConditionT | ConditionTE | Scope) => {
