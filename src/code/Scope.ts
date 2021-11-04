@@ -34,6 +34,7 @@ class Scope extends Compilable {
     compile = (): string => {
         return this.regularize(`${this.Entry.compile()}${this.Exit.compile()}`);
     }
+    
 }
 
 export { Scope }

@@ -54,7 +54,7 @@ class Block extends Compilable {
      */
     def = (v: string | number | boolean | number[] | string[]): string => {
         codegenValueError(v, `v does not support null/undefined`);
-        const NAME = `b{${getId()}}`,
+        const NAME = `b${getId()}`,
             CODELINE_ARR = this.CODELINE_SET,
             VARIABLE_NAME_ARR = this.VARIABLE_NAME_ARR;
         VARIABLE_NAME_ARR.push(NAME);

@@ -18,6 +18,7 @@
     "rootDir": "src",
     "include": [
         "dist/**/*",
-        "src/**/*"
+        "src/**/*",
+        "unit/**/*"
     ]
 }

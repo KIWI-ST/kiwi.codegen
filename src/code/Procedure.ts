@@ -67,6 +67,7 @@ class Procedure extends Compilable {
         const inputArgumentsSource: string = this.inputArguments.join();
         return this.regularize(`function(${inputArgumentsSource}){${this.bodyScope.compile()}}`);
     }
+    
 }
 
 
